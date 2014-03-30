@@ -18,7 +18,7 @@ app.set('view engine', 'jade');
 app.use(initMongo.connect);
 app.use(initRoutes);
 app.use(express.logger(':remote-addr -> :method :url [:status]'));
-app.use(express.favicon());
+app.use(express.favicon(__dirname + '/static/img/favicon.ico'));
 app.use(express.static(__dirname + '/static'));
 app.use('/less', less(__dirname + '/less'));
 app.use(express.bodyParser());
@@ -36,6 +36,10 @@ var server = require('http').createServer(app);
 server.listen(port, function(){
   console.log('Node server listening. Port: ' + port + ', Database: ' + dbname);
 });
+
+var sockets = require('./lib/sockets');
+var io = require('socket.io').listen(server, {log:true, 'log level':2});
+io.of('/app').on('connection', sockets.connection);
 
 module.exports = app;
 

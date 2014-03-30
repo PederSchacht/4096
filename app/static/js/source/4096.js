@@ -23,7 +23,7 @@ $(function(){
   var pos = ['10','130','250','370'];
 
   //Init game
-  $('#playground').playground({height: PLAYGROUND_SIZE, width: PLAYGROUND_SIZE, keyTracker: true});
+  $('#playground').playground({height: PLAYGROUND_SIZE, width: PLAYGROUND_SIZE});
 
   $.playground().addGroup('tiles',{height: PLAYGROUND_SIZE, width: PLAYGROUND_SIZE});
 
@@ -37,44 +37,43 @@ $(function(){
 
   //Tile Double
   function tileUp(tile, num){
-    console.log(tile);
     var block = tile;
-    var n = num;
-    switch(n){
-      case 2048:
-        $('#"+tile+"').setAnimation(tileAnimation['4096']);
+    var n = parseInt(num);
+    switch(true){
+      case (n === 2048):
+        $(block).setAnimation(tileAnimation['4096']);
         youWon();
         break;
-      case 1024:
-        tile.setAnimation(tileAnimation['2048']);
+      case (n === 1024):
+        $(block).setAnimation(tileAnimation['2048']);
         break;
-      case 512:
-        tile.setAnimation(tileAnimation['1024']);
+      case (n === 512):
+        $(block).setAnimation(tileAnimation['1024']);
         break;
-      case 256:
-        tile.setAnimation(tileAnimation['512']);
+      case (n === 256):
+        $(block).setAnimation(tileAnimation['512']);
         break;
-      case 128:
-        tile.setAnimation(tileAnimation['256']);
+      case (n === 128):
+        $(block).setAnimation(tileAnimation['256']);
         break;
-      case 64:
-        tile.setAnimation(tileAnimation['128']);
+      case (n === 64):
+        $(block).setAnimation(tileAnimation['128']);
         break;
-      case 32:
-        tile.setAnimation(tileAnimation['64']);
+      case (n === 32):
+        $(block).setAnimation(tileAnimation['64']);
         break;
-      case 16:
-        tile.setAnimation(tileAnimation['32']);
+      case (n === 16):
+        $(block).setAnimation(tileAnimation['32']);
         break;
-      case 8:
-        tile.setAnimation(tileAnimation['16']);
+      case (n === 8):
+        $(block).setAnimation(tileAnimation['16']);
         break;
-      case 4:
-        tile.setAnimation(tileAnimation['8']);
+      case (n === 4):
+        $(block).setAnimation(tileAnimation['8']);
         break;
-      case 2:
+      case (n === 2):
         console.log('working');
-        $('"#'+block+'"').setAnimation(tileAnimation['4']);
+        $(block).setAnimation(tileAnimation['4']);
         break;
     }
   }

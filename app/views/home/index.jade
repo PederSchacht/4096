@@ -3,5 +3,30 @@ extends ../shared/template
 block content
   h1= title
 
-  a(href='/4096') 4096
+  #playground
+    .play-grid
+      .play-row
+        .slot
+        .slot
+        .slot
+        .slot
+      .play-row
+        .slot
+        .slot
+        .slot
+        .slot
+      .play-row
+        .slot
+        .slot
+        .slot
+        .slot
+      .play-row
+        .slot
+        .slot
+        .slot
+        .slot
+
+block scripts
+  script(src='/js/vendor/jquery.gamequery-0.7.1.js')
+  script(src='/js/source/4096.js')
 
