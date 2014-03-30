@@ -25,7 +25,7 @@
   }
 
   function addMessage(data){
-    var $message = $('<div>');
+    var $message = $('<div class="chat-message">');
     $message.text(data.text);
     $('#messages').prepend($message);
   }
