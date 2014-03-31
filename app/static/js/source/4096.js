@@ -117,53 +117,165 @@ $(function(){
   }
 
   function left(){
-    var current = parseInt($('#tile').x());
-    if(current-120 > 0){
-      $('#tile').x(current-120,false);
-    }
-  }
-
-  function up(){
-    var current = parseInt($('#tile').y());
-    if(current-120 > 0){
-      $('#tile').y(current-120,false);
+    for(var i=0;i<slots.length;i++){
+      if(slots[i].empty === false){
+        var sub = slots[i].subnum;
+        var z = i - sub;
+        for(z;z<i;z++){
+          if(slots[z].empty === true){
+            var current = parseInt($(slots[i].tile).x());
+            var newloc = slots[z].posx;
+            $(slots[i].tile).x(current+(newloc-current),false);
+            slots[i].empty = true;
+            slots[z].empty = false;
+            slots[z].tile = slots[i].tile;
+            delete slots[i].tile;
+            break;
+          }
+        }
+      }
     }
   }
 
   function right(){
-    var current = parseInt($('#tile').x());
-    if(current+120 < PLAYGROUND_SIZE-TILE_SIZE){
-      $('#tile').x(current+120,false);
+    slots = slots.reverse();
+    for(var i=0;i<slots.length;i++){
+      if(slots[i].empty === false){
+        var add = slots[i].addnum;
+        var z = i - add;
+        for(z;z<i;z++){
+          if(slots[z].empty === true){
+            var current = parseInt($(slots[i].tile).x());
+            var newloc = slots[z].posx;
+            $(slots[i].tile).x(current+(newloc-current),false);
+            slots[i].empty = true;
+            slots[z].empty = false;
+            slots[z].tile = slots[i].tile;
+            delete slots[i].tile;
+            break;
+          }
+        }
+      }
     }
+    slots = slots.reverse();
+  }
+
+  function up(){
+    slotsUp();
+    for(var i=0;i<slots.length;i++){
+      if(slots[i].empty === false){
+        var upn = slots[i].upnum;
+        var z = i - upn;
+        for(z;z<i;z++){
+          if(slots[z].empty === true){
+            var current = parseInt($(slots[i].tile).y());
+            var newloc = slots[z].posy;
+            $(slots[i].tile).y(current+(newloc-current),false);
+            slots[i].empty = true;
+            slots[z].empty = false;
+            slots[z].tile = slots[i].tile;
+            delete slots[i].tile;
+            break;
+          }
+        }
+      }
+    }
+    reverseSlotsUp();
   }
 
   function down(){
-    var current = parseInt($('#tile').y());
-    if(current+120 < PLAYGROUND_SIZE-TILE_SIZE){
-      $('#tile').y(current+120,false);
+    slotsUp();
+    slots = slots.reverse();
+    for(var i=0;i<slots.length;i++){
+      if(slots[i].empty === false){
+        var downn = slots[i].downnum;
+        var z = i - downn;
+        for(z;z<i;z++){
+          if(slots[z].empty === true){
+            var current = parseInt($(slots[i].tile).y());
+            var newloc = slots[z].posy;
+            $(slots[i].tile).y(current+(newloc-current),false);
+            slots[i].empty = true;
+            slots[z].empty = false;
+            slots[z].tile = slots[i].tile;
+            delete slots[i].tile;
+            break;
+          }
+        }
+      }
     }
+    slots = slots.reverse();
+    reverseSlotsUp();
   }
 
   //Tile Generation
   var pos = ['10','130','250','370'];
   var slots = [
-      {posx: pos[0], posy: pos[0], empty: true},
-      {posx: pos[1], posy: pos[0], empty: true},
-      {posx: pos[2], posy: pos[0], empty: true},
-      {posx: pos[3], posy: pos[0], empty: true},
-      {posx: pos[0], posy: pos[1], empty: true},
-      {posx: pos[1], posy: pos[1], empty: true},
-      {posx: pos[2], posy: pos[1], empty: true},
-      {posx: pos[3], posy: pos[1], empty: true},
-      {posx: pos[0], posy: pos[2], empty: true},
-      {posx: pos[1], posy: pos[2], empty: true},
-      {posx: pos[2], posy: pos[2], empty: true},
-      {posx: pos[3], posy: pos[2], empty: true},
-      {posx: pos[0], posy: pos[3], empty: true},
-      {posx: pos[1], posy: pos[3], empty: true},
-      {posx: pos[2], posy: pos[3], empty: true},
-      {posx: pos[3], posy: pos[3], empty: true}
+      {posx: pos[0], posy: pos[0], empty: true, subnum: 0, addnum: 3, upnum:0, downnum: 3},
+      {posx: pos[1], posy: pos[0], empty: true, subnum: 1, addnum: 2, upnum:0, downnum: 3},
+      {posx: pos[2], posy: pos[0], empty: true, subnum: 2, addnum: 1, upnum:0, downnum: 3},
+      {posx: pos[3], posy: pos[0], empty: true, subnum: 3, addnum: 0, upnum:0, downnum: 3},
+      {posx: pos[0], posy: pos[1], empty: true, subnum: 0, addnum: 3, upnum:1, downnum: 2},
+      {posx: pos[1], posy: pos[1], empty: true, subnum: 1, addnum: 2, upnum:1, downnum: 2},
+      {posx: pos[2], posy: pos[1], empty: true, subnum: 2, addnum: 1, upnum:1, downnum: 2},
+      {posx: pos[3], posy: pos[1], empty: true, subnum: 3, addnum: 0, upnum:1, downnum: 2},
+      {posx: pos[0], posy: pos[2], empty: true, subnum: 0, addnum: 3, upnum:2, downnum: 1},
+      {posx: pos[1], posy: pos[2], empty: true, subnum: 1, addnum: 2, upnum:2, downnum: 1},
+      {posx: pos[2], posy: pos[2], empty: true, subnum: 2, addnum: 1, upnum:2, downnum: 1},
+      {posx: pos[3], posy: pos[2], empty: true, subnum: 3, addnum: 0, upnum:2, downnum: 1},
+      {posx: pos[0], posy: pos[3], empty: true, subnum: 0, addnum: 3, upnum:3, downnum: 0},
+      {posx: pos[1], posy: pos[3], empty: true, subnum: 1, addnum: 2, upnum:3, downnum: 0},
+      {posx: pos[2], posy: pos[3], empty: true, subnum: 2, addnum: 1, upnum:3, downnum: 0},
+      {posx: pos[3], posy: pos[3], empty: true, subnum: 3, addnum: 0, upnum:3, downnum: 0}
     ];
+
+  function slotsUp(){
+    var column1 = [];
+    var column2 = [];
+    var column3 = [];
+    var column4 = [];
+    for(var i=0;i<slots.length;i++){
+      switch(true){
+        case (slots[i].posx === '10'):
+          column1.push(slots[i]);
+          break;
+        case (slots[i].posx === '130'):
+          column2.push(slots[i]);
+          break;
+        case (slots[i].posx === '250'):
+          column3.push(slots[i]);
+          break;
+        case (slots[i].posx === '370'):
+          column4.push(slots[i]);
+          break;
+      }
+    }
+    slots = column1.concat(column2, column3, column4);
+  }
+
+  function reverseSlotsUp(){
+    var column1 = [];
+    var column2 = [];
+    var column3 = [];
+    var column4 = [];
+    for(var i=0;i<slots.length;i++){
+      switch(true){
+        case (slots[i].posy === '10'):
+          column1.push(slots[i]);
+          break;
+        case (slots[i].posy === '130'):
+          column2.push(slots[i]);
+          break;
+        case (slots[i].posy === '250'):
+          column3.push(slots[i]);
+          break;
+        case (slots[i].posy === '370'):
+          column4.push(slots[i]);
+          break;
+      }
+    }
+    slots = column1.concat(column2, column3, column4);
+  }
 
   function addTile(){
     var n = Math.floor(Math.random()*16);
@@ -184,9 +296,3 @@ $(function(){
 
 });
 
-/*
-this.Board = function(){
-  var self=this;
-  this.state= [['','','',''],['','','',''],['','','',''],['','','','']];
-};
-*/
