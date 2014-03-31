@@ -83,38 +83,31 @@ $(function(){
   $(document).keydown(function(e){
     switch(e.keyCode){
       case 37: // Left
-      case 72: // Vim Left
-      case 65: // A (WASD Left)
+      //case 72: // Vim Left
+      //case 65: // A (WASD Left)
         left();
+        addTile();
         break;
       case 38: // Up
-      case 75: // Vim Up
-      case 87: // W (WASD Up)
+      //case 75: // Vim Up
+      //case 87: // W (WASD Up)
         up();
+        addTile();
         break;
       case 39: // Right
-      case 76: // Vim Right
-      case 68: // D (WASD Right)
+      //case 76: // Vim Right
+      //case 68: // D (WASD Right)
         right();
+        addTile();
         break;
       case 40: // Down
-      case 74: // Vim Down
-      case 83: // S (WASD Down)
+      //case 74: // Vim Down
+      //case 83: // S (WASD Down)
         down();
-        break;
-      case 32: // Space
-        space();
+        addTile();
         break;
     }
   });
-
-  function space(){
-    var $test = $('#tile');
-    var tileselect = $test.selector;
-    var testurl= $test[0].gameQuery.animation.imageURL;
-    var test2 = testurl.slice(19,-4);
-    tileUp(tileselect, test2);
-  }
 
   function left(){
     for(var i=0;i<slots.length;i++){
@@ -131,6 +124,17 @@ $(function(){
             slots[z].tile = slots[i].tile;
             delete slots[i].tile;
             break;
+          }else{
+            var tile1 = ($(slots[z].tile)[0].gameQuery.animation.imageURL).slice(19, -4);
+            var tile2 = ($(slots[i].tile)[0].gameQuery.animation.imageURL).slice(19, -4);
+            if(tile1 === tile2){
+              var tileselect = $(slots[z].tile).selector;
+              tileUp(tileselect, tile1);
+              slots[i].empty = true;
+              $(slots[i].tile).remove();
+              delete slots[i].tile;
+              break;
+            }
           }
         }
       }
@@ -153,6 +157,17 @@ $(function(){
             slots[z].tile = slots[i].tile;
             delete slots[i].tile;
             break;
+          }else{
+            var tile1 = ($(slots[z].tile)[0].gameQuery.animation.imageURL).slice(19, -4);
+            var tile2 = ($(slots[i].tile)[0].gameQuery.animation.imageURL).slice(19, -4);
+            if(tile1 === tile2){
+              var tileselect = $(slots[z].tile).selector;
+              tileUp(tileselect, tile1);
+              slots[i].empty = true;
+              $(slots[i].tile).remove();
+              delete slots[i].tile;
+              break;
+            }
           }
         }
       }
@@ -176,6 +191,17 @@ $(function(){
             slots[z].tile = slots[i].tile;
             delete slots[i].tile;
             break;
+          }else{
+            var tile1 = ($(slots[z].tile)[0].gameQuery.animation.imageURL).slice(19, -4);
+            var tile2 = ($(slots[i].tile)[0].gameQuery.animation.imageURL).slice(19, -4);
+            if(tile1 === tile2){
+              var tileselect = $(slots[z].tile).selector;
+              tileUp(tileselect, tile1);
+              slots[i].empty = true;
+              $(slots[i].tile).remove();
+              delete slots[i].tile;
+              break;
+            }
           }
         }
       }
@@ -200,6 +226,17 @@ $(function(){
             slots[z].tile = slots[i].tile;
             delete slots[i].tile;
             break;
+          }else{
+            var tile1 = ($(slots[z].tile)[0].gameQuery.animation.imageURL).slice(19, -4);
+            var tile2 = ($(slots[i].tile)[0].gameQuery.animation.imageURL).slice(19, -4);
+            if(tile1 === tile2){
+              var tileselect = $(slots[z].tile).selector;
+              tileUp(tileselect, tile1);
+              slots[i].empty = true;
+              $(slots[i].tile).remove();
+              delete slots[i].tile;
+              break;
+            }
           }
         }
       }

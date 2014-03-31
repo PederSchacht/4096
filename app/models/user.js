@@ -4,6 +4,7 @@ module.exports = User;
 var bcrypt = require('bcrypt');
 var users = global.nss.db.collection('users');
 var email = require('../lib/email');
+var Mongo = require('mongodb');
 
 function User(user){
   this.email = user.email;
@@ -61,4 +62,12 @@ function hashPassword(password, fn){
     fn(hash);
   });
 }
+
+User.findById = function(id, fn){
+  var _id = Mongo.ObjectID(id);
+
+  users.findOne({_id:_id}, function(err, record){
+    fn(record);
+  });
+};
 

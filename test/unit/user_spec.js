@@ -79,5 +79,16 @@ describe('User', function(){
     });
   });
 
+  describe('findById', function(){
+    it('should find user by their id', function(done){
+      var id = bob._id.toString();
+
+      User.findById(id, function(User){
+        expect(User.id).to.deep.equal(bob.id);
+        done();
+      });
+    });
+  });
+
 });
 

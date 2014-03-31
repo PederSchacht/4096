@@ -14,24 +14,38 @@ html(class='no-js', lang='en')
     nav.top-bar
       ul.title-area
         li.name
+          h1: a(href='#')= title
       section.top-bar-section
         ul.left
-        ul.right
-          li: a.chat-window(href='#sidr') Chat Room
           li.divider
-          li: a(href='/register') Register
-          li.divider
-          li: a(href='/login') Login
-          li: a(href='/profile')= user ? user.name : 'anon'
+          li: a(href='/') Home
           li.divider
           li.has-dropdown.not-click
-            a#gearicon(href='#') &#9881;
-            ul.dropdown
-              li: a(href='/profile') My Profile
-              li.divider
-              li.has-form
-                form(action='/logout', method='post')
-                  button.alert.tiny.radius.expand Logout
+            a(href='#') About
+            ul.dropdown#about
+              li.controls
+                p Use the arrow keys to move the tiles on the board.
+                p Tiles of the same value slide together and combine.
+                p Try to get to the highest tile, 4096!
+              li.thanks
+                p 4096 is a clone of: <a href='http://gabrielecirulli.github.io/2048/'>2048 by Gabriele Cirulli.</a>
+                p This game was created by: <a href='https://github.com/PederSchacht'>Peder Schacht</a> as a project for <a href='http://nashvillesoftwareschool.com/'>NSS Cohort 4</a>.
+        ul.right
+          if !user
+            li: a(href='/register') Register
+            li.divider
+            li: a(href='/login') Login
+          if user
+            li: a.chat-window(href='#sidr') Chat Room
+            li.divider
+            li: a(href='#')= user ? user.name : 'anon'
+            li.divider
+            li.has-dropdown.not-click
+              a#gearicon(href='#') &#9881;
+              ul.dropdown
+                li.has-form
+                  form(action='/logout', method='post')
+                    button.alert.tiny.radius.expand#logout Logout
 
       .row
         .small-12.columns
